@@ -1,4 +1,5 @@
-﻿import { useState } from 'react'
+﻿
+import { useState } from 'react'
 import { format, parse } from 'date-fns'
 import { ChevronDown, RefreshCcw } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
@@ -80,20 +81,30 @@ const parseDate = (dateStr: string) => {
   return parse(dateStr, 'dd/MM/yyyy HH:mm:ss', new Date())
 }
 
-const handleReinitiate = (importData: any) => {
-  console.log('Reinitiating import for:', importData.importfile)
-}
+// const handleReinitiate = (importData: any) => {
+//   const externalUrl = "http://localhost:56647/aspx/signin.aspx";
+//
+//   console.log('Reinitiating import for:', importData.importfile)
+// }
 
 const ImportStatus = () => {
   const [filteredStatus, setFilteredStatus] = useState('all')
   const [filteredScreen, setFilteredScreen] = useState('all')
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
 
   const filteredData = importDataList.filter(
     (item) =>
       (filteredStatus === 'all' || item.status === filteredStatus) &&
       (filteredScreen === 'all' || item.importscreen === filteredScreen),
   )
+
+  const handleReinitiate = (importData: any) => {
+    const externalUrl = "http://localhost:56647/aspx/signin.aspx";
+    window.open(externalUrl, '_blank');
+
+    console.log('Reinitiating import for:', importData.importfile)
+  }
 
   return (
     <div className="p-4 space-y-6">
